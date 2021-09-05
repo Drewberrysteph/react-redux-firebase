@@ -8,27 +8,39 @@ const useStyles = makeStyles({
         borderRight: '1px solid #ccc',
         height: '100%',
     },
-    activeRecord: {
+    active: {
         background: '#D3F2E0',
         padding: 15,
         cursor: 'pointer',
     },
-    notActiveRecord: {
+    notActive: {
         padding: 15,
         cursor: 'pointer',
     },
+    withCustomClass: {
+        color: 'green',
+    },
+    withoutCustomClass: {
+        color: 'black',
+    },
 });
 
-const Sidebar = ({ masterRecords, activeRecord, setActiveRecord }) => {
+const Sidebar = ({
+    masterRecords,
+    activeRecord,
+    setActiveRecord,
+}) => {
     const classes = useStyles();
+
     return (
         <Box className={classes.root}>
-            {masterRecords.map((record) => (
+            {masterRecords.map((record, idx) => (
                 <Box
                     key={record}
-                    className={record === activeRecord ? classes.activeRecord
-                        : classes.notActiveRecord}
+                    className={record === activeRecord ? classes.active
+                        : classes.notActive}
                     onClick={() => setActiveRecord(record)}
+                    data-testid={`master-record-${idx + 1}`}
                 >
                     <Typography variant="subtitle1">{record}</Typography>
                 </Box>

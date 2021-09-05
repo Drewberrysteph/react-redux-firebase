@@ -47,7 +47,7 @@ const WorkspaceHeader = ({ activeRecord, setOpenModal }) => {
                     onClick={handleOpen}
                     className={classes.customButton}
                 >
-                    <Typography variant="body">Add User</Typography>
+                    <Typography variant="body1">Add User</Typography>
                 </Button>
             </Box>
         </AppBar>
