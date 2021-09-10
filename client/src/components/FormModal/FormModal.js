@@ -16,6 +16,7 @@ import {
     MenuItem,
     Select,
     TextField,
+    Typography,
 } from '@material-ui/core';
 
 import {
@@ -39,6 +40,9 @@ const useStyles = makeStyles(({
         padding: 25,
         width: 360,
     },
+    modalTitle: {
+        textTransform: 'capitalize',
+    },
 }));
 
 const FormModal = ({ openModal, setOpenModal }) => {
@@ -51,7 +55,7 @@ const FormModal = ({ openModal, setOpenModal }) => {
 
     useEffect(() => {
         if (openModal.type === 'edit') {
-            return setData(user);
+            return setData(user || defaultUserProps);
         }
         return setData(defaultUserProps);
     }, [user, openModal]);
@@ -116,6 +120,7 @@ const FormModal = ({ openModal, setOpenModal }) => {
                     open={openModal.status}
                 >
                     <Box className={classes.container}>
+                        <Typography variant="h4" className={classes.modalTitle}>{`${openModal.type} user modal`}</Typography>
                         <form onSubmit={handleSubmit}>
                             <BoxContainer>
                                 <FormControl fullWidth>

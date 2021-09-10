@@ -98,7 +98,7 @@ const WorkspaceMain = ({ users, setOpenModal }) => {
                 - new Date(-1 * userB.createdAt._seconds).getTime()
             )).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((user) => (
-                    <TableRow key={user.id}>
+                    <TableRow key={user.id} data-testid="user-container">
                         <TableCell>
                             {`${user.firstName} ${user.lastName}`}
                         </TableCell>
@@ -122,12 +122,14 @@ const WorkspaceMain = ({ users, setOpenModal }) => {
                                 <Box
                                     onClick={() => handleGetUser(user.id)}
                                     className={classes.actionIconContainer}
+                                    data-testid="edit-icon"
                                 >
                                     <Edit />
                                 </Box>
                                 <Box
                                     onClick={() => handleDelete(user.id)}
                                     className={classes.actionIconContainer}
+                                    data-testid="delete-icon"
                                 >
                                     <Delete />
                                 </Box>

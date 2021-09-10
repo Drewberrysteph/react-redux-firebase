@@ -42,7 +42,6 @@ const App = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { users, loading, requestStatus } = useSelector((state) => state.data);
-
   const [openModal, setOpenModal] = useState(defaultOpenModalProps);
   const [masterRecords] = useState(masterRecordLists);
   const [activeRecord, setActiveRecord] = useState('Master Record 1');
