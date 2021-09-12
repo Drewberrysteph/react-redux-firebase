@@ -129,7 +129,7 @@ const WorkspaceMain = ({ users, setOpenModal }) => {
                                 <Box
                                     onClick={() => handleDelete(user.id)}
                                     className={classes.actionIconContainer}
-                                    data-testid="delete-icon"
+                                    data-testid={`delete-icon-${user.id}`}
                                 >
                                     <Delete />
                                 </Box>
