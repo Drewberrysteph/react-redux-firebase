@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { render } from '@testing-library/react'
+import { render, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
@@ -7,13 +7,12 @@ import thunk from 'redux-thunk'
 
 import App from '../App'
 
-
-
 let getByTestId;
 let getByRole;
 let findAllByTestId;
 let getByText;
 let getByPlaceholderText;
+let queryByText;
 
 const initialState = {
     data: {
@@ -59,6 +58,7 @@ beforeEach(() => {
     findAllByTestId = component.findAllByTestId
     getByText = component.getByText
     getByPlaceholderText = component.getByPlaceholderText
+    queryByText = component.queryByText
 })
 
 function checkElementClass(ele, klassName) {
@@ -76,16 +76,36 @@ describe('App Component', () => {
         checkElementClass(firstEle, 'active')
         checkElementClass(secondEle, 'notActive')
     })
-    describe('Modals', () => {
-        it('should open Add User modal', () => {
-            userEvent.click(getByRole('button', { name: /add user/i }))
-            expect(getByRole('heading', { name: /add user modal/i })).toBeInTheDocument()
-        })
+    it('should open Add User modal', () => {
+        userEvent.click(getByRole('button', { name: /add user/i }))
+        expect(getByRole('heading', { name: /add user modal/i })).toBeInTheDocument()
+    })
 
-        it('should open Edit User modal with user info', async () => {
-            const userElems = await findAllByTestId(/edit-icon/i)
-            userEvent.click(userElems[1])
-            expect(getByRole('heading', { name: /edit user modal/i })).toBeInTheDocument()
-        })
+    it('should open Edit User modal', async () => {
+        const userElems = await findAllByTestId(/edit-icon/i)
+        userEvent.click(userElems[1])
+        expect(getByRole('heading', { name: /edit user modal/i })).toBeInTheDocument()
+    })
+    it('should open Add User modal and validate all inputs and enable Save button', () => {
+        userEvent.click(getByRole('button', { name: /add user/i }))
+        const emailEle = getByPlaceholderText('email')
+        const firstNameEle = getByPlaceholderText('firstName')
+        const lastNameEle = getByPlaceholderText('lastName')
+        const organisationEle = getByPlaceholderText('organisation')
+        const roleEle = getByTestId('select-role')
+        const countryEle = getByTestId('select-country')
+        const saveEle = getByText(/save/i)
+        expect(getByRole('heading', { name: /add user modal/i })).toBeInTheDocument()
+        userEvent.type(emailEle, 'drew@test.com')
+        expect(queryByText(/invalid email/i)).not.toBeInTheDocument()
+        userEvent.type(firstNameEle, 'drew')
+        userEvent.type(lastNameEle, 'stifler')
+        userEvent.type(organisationEle, 'drew co.')
+        expect(firstNameEle.value).toBe('drew')
+        expect(lastNameEle.value).toBe('stifler')
+        expect(organisationEle.value).toBe('drew co.')
+        fireEvent.change(roleEle, { target: { value: 'Owner' } })
+        fireEvent.change(countryEle, { target: { value: 'Australia' } })
+        expect(saveEle.closest('button')).not.toBeDisabled()
     })
 })

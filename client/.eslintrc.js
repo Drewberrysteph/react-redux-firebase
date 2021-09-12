@@ -26,4 +26,5 @@ module.exports = {
     'react/jsx-indent': 'off',
     'react/jsx-indent-props': 'off',
   },
+  'import/no-extraneous-dependencies': ['error', { 'devDependencies': true }],
 };

@@ -132,6 +132,7 @@ const FormModal = ({ openModal, setOpenModal }) => {
                                         value={data.email}
                                         error={validEmail.valid === 'invalid'}
                                         helperText={validEmail.valid === 'invalid' ? 'Invalid Email' : ''}
+                                        placeholder="email"
                                         required
                                     />
                                 </FormControl>
@@ -143,6 +144,7 @@ const FormModal = ({ openModal, setOpenModal }) => {
                                         onChange={handleData}
                                         name="firstName"
                                         value={data.firstName}
+                                        placeholder="firstName"
                                         required
                                     />
                                 </FormControl>
@@ -152,6 +154,7 @@ const FormModal = ({ openModal, setOpenModal }) => {
                                         onChange={handleData}
                                         name="lastName"
                                         value={data.lastName}
+                                        placeholder="lastName"
                                         required
                                     />
                                 </FormControl>
@@ -163,6 +166,7 @@ const FormModal = ({ openModal, setOpenModal }) => {
                                         onChange={handleData}
                                         name="organisation"
                                         value={data.organisation}
+                                        placeholder="organisation"
                                         required
                                     />
                                 </FormControl>
@@ -174,6 +178,7 @@ const FormModal = ({ openModal, setOpenModal }) => {
                                         onChange={handleData}
                                         value={data.organisation_features}
                                         name="organisation_features"
+                                        data-testid="select-organisation-feature-cy"
                                         multiple
                                     >
                                         {organisationFeatures.map((org) => {
@@ -194,6 +199,8 @@ const FormModal = ({ openModal, setOpenModal }) => {
                                         onChange={handleData}
                                         name="role"
                                         required
+                                        inputProps={{ 'data-testid': 'select-role' }}
+                                        data-testid="select-role-cy"
                                     >
                                         {roleType.map((role) => {
                                             return (
@@ -213,6 +220,8 @@ const FormModal = ({ openModal, setOpenModal }) => {
                                         onChange={handleData}
                                         name="country"
                                         required
+                                        inputProps={{ 'data-testid': 'select-country' }}
+                                        data-testid="select-country-cy"
                                     >
                                         {countries.map((cntry) => {
                                             return (
