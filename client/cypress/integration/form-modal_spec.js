@@ -22,8 +22,5 @@ describe('FormModal Component', () => {
             name: /australia/i
         }).click()
         cy.findByRole('button', { name: /save/i }).click()
-        // click add user button
-        // fill up details
-        // click save button
     })
 })
